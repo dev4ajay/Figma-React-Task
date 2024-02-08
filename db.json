@@ -1,0 +1,78 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "businessname": "ajay",
+      "state": "haryana",
+      "city": "hisar",
+      "country": "india",
+      "address": "V P O Pabra , Hisar",
+      "email": "ajay@gmail.in",
+      "mobile": "7404702323",
+      "uploadfile": "www.www.png"
+    },
+    {
+      "id": "cc1f",
+      "businessname": "Deepak Kumar",
+      "city": "Jind",
+      "country": "India",
+      "state": "Haryana",
+      "address": "V P O Sangatpura ,Jind",
+      "openingtime": "23:59",
+      "closeingtime": "03:00",
+      "uploadfile": "C:\\fakepath\\Screenshot_2024_01_16-1.png",
+      "mobile": "09817084887",
+      "email": "dk3171715@gmail.com"
+    },
+    {
+      "id": "7415",
+      "fullname": "Deepak Kumar",
+      "city": "Jind",
+      "country": "India",
+      "state": "Haryana",
+      "address": "V P O Sangatpura ,Jind",
+      "uploadfile": "C:\\fakepath\\Screenshot_2024_01_16-1.png",
+      "mobile": "09817084887",
+      "email": "dk3171715@gmail.com"
+    },
+    {
+      "id": "c22f",
+      "businessname": "mohit",
+      "city": "Hisar",
+      "country": "India",
+      "state": "Haryana",
+      "address": "V P O hisar ,hisar",
+      "openingtime": "03:59",
+      "closeingtime": "03:59",
+      "uploadfile": "C:\\fakepath\\Screenshot_2024_01_16-1.png",
+      "mobile": "7206977025",
+      "email": "mohit@gmail.com"
+    },
+    {
+      "id": "a50d",
+      "businessname": "Deepak Kumar",
+      "city": "Hisar",
+      "country": "India",
+      "state": "Haryana",
+      "address": "V P O bhuna ,hisar",
+      "openingtime": "03:09",
+      "closeingtime": "09:08",
+      "uploadfile": "C:\\fakepath\\Screenshot_2024_01_16-1.png",
+      "mobile": "09817084887",
+      "email": "deepak@gmail.com"
+    },
+    {
+      "id": "cec0",
+      "businessname": "Ajay",
+      "city": "Hisar",
+      "country": "India",
+      "state": "Haryana",
+      "address": "pabra",
+      "openingtime": "03:03",
+      "closeingtime": "03:09",
+      "uploadfile": "C:\\fakepath\\favicon.ico",
+      "mobile": "7599393339",
+      "email": "dev4ajay@gmail.com"
+    }
+  ]
+}

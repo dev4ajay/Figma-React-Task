@@ -1,6 +1,6 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
-
+import { Link } from 'react-router-dom'
 function Sidebar() {
   const {pathname} = useLocation()
 
@@ -12,8 +12,8 @@ function Sidebar() {
       <div className='sidebar-text mt-2'>Be our partner in just few steps and start Increasing your reach by gaining new customers.</div>
       <div className='sidebar-menu mt-3'>
         <ul>
-          <li><a href='/page1' className='list-indexs'> <span className={pathname =="/page1" ? "active":""}>1</span> Business Information</a></li>
-          <li><a href='/page2' className='list-indexs'> <span className={pathname =="/page2" ? "active":""}>2</span> Owner & Manager Details</a></li>
+          <li><Link to='/business' className='list-indexs'> <span className={pathname =="/business" ? "active":""}>1</span> Business Information</Link></li>
+          <li><Link to='/owner' className='list-indexs'> <span className={pathname =="/owner" ? "active":""}>2</span> Owner & Manager Details</Link></li>
           <li><a className='list-indexs'> <span>3</span> PAN/Aadhaar Details</a></li>
           <li><a className='list-indexs'> <span>4</span> Legal Documents</a></li>
           <li><a className='list-indexs'> <span>5</span> Bank Details</a></li>

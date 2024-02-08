@@ -2,21 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.sp-text {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.sp-texts {
-  display: flex;
-  justify-content: center;
-}
 .sp-texts h1 {
-  margin-left: 35%;
+ display: flex;
+ justify-content: end;
   color: #ca2531;
   font-family: sans-serif;
   font-weight: bold;
   font-size: 45px;
+  margin-right: 17.5%;
 }
 .header-img {
   background-image: url("./assets/images/Rectangle\ 2110.jpg");
@@ -35,7 +28,9 @@
   color: #121212;
   font-weight: 700;
   line-height: 23px;
-  margin-left: 50%;
+  justify-content: end;
+  display: flex;
+  margin-right: 3%;
 }
 .sidebar-head {
   font-family: sans-serif;
@@ -55,10 +50,10 @@
   margin-top: 10px;
 }
 .profile-pic-img {
-  width: 40%;
+  width: 50%;
 }
 .profile-pic-img label {
-  height: 20vh;
+  height: 30vh;
 }
 .yes-btn {
   color: #da3545;
@@ -160,6 +155,51 @@
 }
 .Manager-Details {
   display: flex;
-  justify-content: end;
-  align-items: end;
+  justify-content: center;
+  align-items: center;
+}
+@media only screen and (max-width: 500px) {
+  .sp-texts h1 {
+   margin-right: 25%;
+   }
+   .sp-text p {
+    
+  margin-left: 4%;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .sp-texts h1 {
+    margin-left: 4%;
+   }
+   .sp-text p {
+    
+  margin-left: 4%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .sp-texts h1 {
+    margin-left: 4%;
+   }
+   .sp-text p {
+    
+  margin-left: 4%;
+  }
+}
+@media only screen and (max-width: 300px) {
+  .sp-texts h1 {
+    margin-left: 4%;
+   }
+   .sp-text p {
+    
+  margin-left: 4%;
+  }
+}
+@media only screen and (max-width: 290px) {
+  .sp-texts h1 {
+    margin-left: 4%;
+   }
+   .sp-text p {
+    
+  margin-left: 4%;
+  }
 }
