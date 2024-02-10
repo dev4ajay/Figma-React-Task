@@ -1,37 +1,13 @@
-import React, { useState , useEffect } from "react";
+import React, { useState } from "react";
 import iicon from "../../assets/icons/info.svg";
-import { City, Country, State } from "country-state-city";
 import uploadimage from "../../assets/icons/upload.svg";
 import MapImg from "../../assets/icons/map-pin.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-import Selector from "../../Selector"
+
 function Informationsection() {
   const navigate = useNavigate();
-  let countryData = Country.getAllCountries();
-  const [stateData, setStateData] = useState();
-  const [cityData, setCityData] = useState();
-
-  const [country, setCountry] = useState(countryData[0]);
-  const [state, setState] = useState();
-  const [city, setCity] = useState();
-
-  useEffect(() => {
-    setStateData(State.getStatesOfCountry(country?.isoCode));
-  }, [country]);
-
-  useEffect(() => {
-    setCityData(City.getCitiesOfState(country?.isoCode, state?.isoCode));
-  }, [state]);
-
-  useEffect(() => {
-    stateData && setState(stateData[0]);
-  }, [stateData]);
-
-  useEffect(() => {
-    cityData && setCity(cityData[0]);
-  }, [cityData]);
 
   const [formData, setFormData] = useState({
     businessname: "",
@@ -42,30 +18,48 @@ function Informationsection() {
     openingtime: "",
     closeingtime: "",
     uploadfile: "",
-    mobile:"",
-    email:"",
+    mobile: "",
+    email: "",
   });
 
-
-  const BusinessSubmit = (e) => {
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    const fileName = file.name; // Extract the filename
+    setFormData({ ...formData, uploadfile:fileName });
+    console.log("Uploaded file:", fileName);
+  };
+  const BusinessSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.email || !formData.businessname || !formData.mobile  || !formData.address || !formData.city || !formData.closeingtime  || !formData.country || !formData.openingtime || !formData.state || !formData.uploadfile ) {
-      Swal.fire({
-        icon: "error",
-        text: " Please check your all details",
-      });
-      return;
-    }
-    console.log(formData);
-
-    axios.post(`http://localhost:3000/posts` ,formData).then((res)=>{
-
+    try {
+      if (
+        !formData.email ||
+        !formData.businessname ||
+        !formData.mobile ||
+        !formData.address ||
+        !formData.city ||
+        !formData.closeingtime ||
+        !formData.country ||
+        !formData.openingtime ||
+        !formData.state ||
+        !formData.uploadfile
+      ) {
+        Swal.fire({
+          icon: "error",
+          text: " Please check your all details",
+        });
+        return;
+      }
+  
+      
     
+      console.log(formData);
+
+      const res = await axios.post(`http://localhost:3000/posts`, formData);
+
       console.log(res);
-      setFormData(res.posts)
+      setFormData(res.data.posts);
 
       if (res.status === 201) {
-         
         Swal.fire({
           icon: "success",
           text: "! Business Information Details Successfully !",
@@ -74,19 +68,15 @@ function Informationsection() {
           showConfirmButton: false,
         });
       }
-      navigate("/owner")
-    })
-    .catch(error => {
-      console.error('Login error:', error);
+      navigate("/owner");
+    } catch (error) {
+      console.error("Bussiness information  error:", error);
       // Handle login error, show error message to the user
       Swal.fire({
         icon: "error",
-        text: " Please check your  all details",
+        text: " Please check all  deltails",
       });
-    });
-   
-  
-
+    }
 
     setFormData({
       businessname: "",
@@ -96,14 +86,11 @@ function Informationsection() {
       address: "",
       openingtime: "",
       closeingtime: "",
-      uploadfile: "", 
-      mobile:"",
-      email:"", // Resetting the file input value
-    })
-   
-
+      uploadfile: "",
+      mobile: "",
+      email: "", // Resetting the file input value
+    });
   };
- 
 
   return (
     <>
@@ -125,10 +112,8 @@ function Informationsection() {
                     id="businessname"
                     name="businessname"
                     value={formData.businessname}
-                  
                     className="peer block w-full rounded border-2 border-gray-300 bg-white px-3 py-2 focus:outline-none focus:border-blue-500 "
                     placeholder="Enter  Your Business Name *"
-                    
                     onChange={(e) =>
                       setFormData({ ...formData, businessname: e.target.value })
                     }
@@ -139,33 +124,113 @@ function Informationsection() {
                 <label className="block   text-sm font-medium  group-label dark:text-white">
                   Country * <img src={iicon} />
                 </label>
-                <Selector
-              data={countryData}
-              selected={country}
-              setSelected={setCountry}
-            />
+                <select
+                  id="country"
+                  name="country"
+                  value={formData.country}
+                  onChange={(e) =>
+                    setFormData({ ...formData, country: e.target.value })
+                  }
+                  className="peer block w-full rounded border-2 border-gray-300 bg-white px-3 py-2 focus:outline-none focus:border-blue-500 "
+                >
+                  <option>Choose a Country</option>
+                  <option>USA</option>
+                  <option>India</option>
+                  <option>SIngpur</option>
+                  <option>India</option>
+                  <option>Afghanistan</option>
+                  <option>Albania</option>
+                  <option>Algeria</option>
+                  <option>Andorra</option>
+                  <option>Angola</option>
+                  <option>Antigua</option>
+                  <option> Barbuda</option>
+                  <option>Argentina</option>
+                  <option>Armenia</option>
+                  <option>Canada</option>
+                  <option>Australia</option>
+                  <option>United Kingdom</option>
+                  <option>Iceland</option>
+
+                  <option>Indonesia</option>
+                  <option>Iran</option>
+                  <option>Iraq</option>
+                  <option>Ireland</option>
+                  <option>Israel</option>
+                  <option>Italy</option>
+                </select>
               </div>
               <div className="col-lg-6 mt-2 mb-2">
                 <label className="block mb-2  text-sm font-medium  group-label dark:text-white">
                   State * <img src={iicon} />
                 </label>
-                <Selector
-                data={stateData}
-                selected={state}
-                setSelected={setState}
-              />
+                <select
+                  id="state"
+                  name="state"
+                  value={formData.state}
+                  onChange={(e) =>
+                    setFormData({ ...formData, state: e.target.value })
+                  }
+                  className="peer block w-full rounded border-2 border-gray-300 bg-white px-3 py-2 focus:outline-none focus:border-blue-500 "
+                >
+                  <option>Choose a State</option>
+                  <option>Punjab</option>
+                  <option>Haryana</option>
+                  <option>Gujrat</option>
+                  <option>Andhra Pradesh</option>
+                  <option>Arunachal Pradesh</option>
+                  <option>Assam</option>
+                  <option>Himachal Pradesh</option>
+                  <option>Jharkhand</option>
+                  <option>Madhya Pradesh</option>
+                  <option>Maharashtra</option>
+                  <option>Manipur</option>
+                  <option>Meghalaya</option>
+                  <option>Mizoram</option>
+                  <option>Nagaland</option>
+                  <option>Rajasthan</option>
+                  <option>Tamil Nadu</option>
+                  <option>Uttarakhand</option>
+                  <option>Uttar Pradesh</option>
+                  <option>West Bengal</option>
+                </select>
               </div>
               <div className="col-lg-6 mt-2 mb-2">
                 <label className="block mb-2  text-sm font-medium  group-label dark:text-white">
                   City * <img src={iicon} />
                 </label>
-                <Selector data={cityData} selected={city} setSelected={setCity} />
+                <select
+                  id="city"
+                  name="city"
+                  value={formData.city}
+                  onChange={(e) =>
+                    setFormData({ ...formData, city: e.target.value })
+                  }
+                  className="peer block w-full rounded border-2 border-gray-300 bg-white px-3 py-2 focus:outline-none focus:border-blue-500 "
+                >
+                  <option>Choose a City</option>
+                  <option> Gurugram</option>
+                  <option> Jaipur</option>
+                  <option> Hisar</option>
+                  <option>Jind</option>
+                  <option> Delhi</option>
+                  <option>Rohtak</option>
+                  <option> Fatehabad</option>
+                  <option> Bhiwani</option>
+                  <option> Sirsa</option>
+                  <option>Lucknow </option>
+                  <option>Kaithal </option>
+                  <option>Nagpur</option>
+                  <option>Thane </option>
+                  <option>Visakhapatnam</option>
+                  <option> Ludhiana </option>
+                  <option>Faridabad </option>
+                </select>
               </div>
               <div className="col-lg-12 mt-2 mb-2">
                 <div className="relative">
                   <label
                     id="address"
-                    
                     className="block text-sm group-label dark:text-white"
                   >
                     Address*
@@ -186,7 +251,6 @@ function Informationsection() {
                       id="address"
                       className="peer block w-full rounded border-2 border-gray-300 bg-white px-3 py-2 focus:outline-none focus:border-blue-500"
                       placeholder="Enter Your Address *"
-                      
                     />
                     <img
                       src={MapImg}
@@ -206,7 +270,6 @@ function Informationsection() {
                   id="openingtime"
                   type="time"
                   name="openingtime"
-                  
                   value={formData.openingtime}
                   onChange={(e) =>
                     setFormData({ ...formData, openingtime: e.target.value })
@@ -225,8 +288,6 @@ function Informationsection() {
                   type="time"
                   value={formData.closeingtime}
                   name="closeingtime"
-                  
-
                   onChange={(e) =>
                     setFormData({ ...formData, closeingtime: e.target.value })
                   }
@@ -243,11 +304,12 @@ function Informationsection() {
                 <div className="flex items-center">
                   <input
                     type="email"
-                  name="email"
-                  value={formData.email}
+                    name="email"
+                    value={formData.email}
                     id="email"
-                    
-                  onChange={(e=>setFormData({...formData , email:e.target.value}))}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
                     placeholder="kingsway.delhi@domino.com"
                     className="peer block w-full rounded border-2 border-gray-300 bg-white px-3  py-2 focus:outline-none focus:border-blue-500"
                   />
@@ -260,29 +322,31 @@ function Informationsection() {
                 </div>
               </div>
 
-              <div className="col-lg-6 mt-2 mb-2">
-                <label className="block group-label" id="mobile">
-                  Mobile Number *<img src={iicon} />
-                </label>
-                <div className="flex items-center">
-                  <input
-                    type="number"
-                   name="mobile"
-                   value={formData.mobile}
-                    id="mobile"
-                    
-                 onChange={(e=>setFormData({...formData , mobile:e.target.value}))}
-                    placeholder="37453289457"
-                    className="peer block w-full rounded border-2 border-gray-300 bg-white px-3  py-2 focus:outline-none focus:border-blue-500"
-                  />
-                  <button
-                    className=" py-1.5 px-4  bg-red-500 text-white  text-xs rounded-sm focus:outline-none "
-                    type="button"
-                  >
-                    Send OTP
-                  </button>
+              <>
+                <div className="col-lg-6 mt-2 mb-2">
+                  <label className="block group-label" id="mobile">
+                    Mobile Number *<img src={iicon} />
+                  </label>
+                  <div className="flex items-center">
+                    <input
+                      type="number"
+                      name="mobile"
+                      country={"in"}
+                      value={formData.mobile}
+                      onChange={(e) =>
+                        setFormData({ ...formData, mobile: e.target.value })
+                      }
+                      id="mobile"
+                      placeholder="37453289457"
+                      className="peer block w-full rounded border-2 border-gray-300 bg-white px-3  py-2 focus:outline-none focus:border-blue-500"
+                    />
+                    <button className=" py-1.5 px-4  bg-red-500 text-white  text-xs rounded-sm focus:outline-none ">
+                      <span> Send OTP</span>
+                    </button>
+                  </div>
                 </div>
-              </div>
+              </>
+
               <div className="col-lg-6  mt-2 mb-2">
                 <label className="group-label">
                   Upload image of your Restaurant * <img src={iicon} />{" "}
@@ -301,18 +365,13 @@ function Informationsection() {
                     <input
                       id="uploadfile"
                       type="file"
-                      value={formData.uploadfile}
-                      onChange={(e) =>
-                        setFormData({ ...formData, uploadfile: e.target.value })
-                      }
+                    
+                      onChange={handleFileUpload}
                       className="hidden "
                     />
                   </label>
                 </div>
               </div>
-        
-
-
             </div>
             <div className="Manager-Details mt-2 mb-2">
               <button type="submit" className="Proceed-btn ">
