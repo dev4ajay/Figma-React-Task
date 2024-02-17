@@ -11,7 +11,6 @@
       "mobile": "7404702323",
       "uploadfile": "www.png"
     },
-
     {
       "id": "3806",
       "businessname": "sandeep kumar",
@@ -24,6 +23,21 @@
       "uploadfile": "photo-1707336665697-83a2dd114643.avif",
       "mobile": "09817084887",
       "email": "dk3171715@gmail.com"
+    },
+    {
+      "id": "4756",
+      "businessname": "Ajay kumar",
+      "city": "Hisar",
+      "country": "India",
+      "state": "Haryana",
+      "address": "V P O Habra ,Hisar",
+      "openingtime": "03:00",
+      "closeingtime": "06:00",
+      "uploadfile": "e0cd3163-b007-4914-a704-04d245711583.jpg",
+      "mobile": "7404701513",
+      "email": "dev4ajaykumar@gmail.com"
     }
+ 
+  
   ]
 }

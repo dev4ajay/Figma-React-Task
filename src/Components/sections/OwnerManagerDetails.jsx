@@ -7,6 +7,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 function ManagerDetails() {
   const navigate = useNavigate();
+ 
   const [formData, setFormData] = useState({
     fullname: "",
     city: "",
@@ -22,6 +23,7 @@ function ManagerDetails() {
     const fileName = file.name; // Extract the filename
     setFormData({ ...formData, uploadfile:fileName });
     console.log("Uploaded file:", fileName);
+   
   };
   const OwnerSubmit = async (e) => {
     e.preventDefault();
@@ -58,7 +60,7 @@ function ManagerDetails() {
           showConfirmButton: false,
         });
       }
-      navigate("/");
+      navigate("/alldocument");
     } catch (error) {
       console.error("error:", error);
       // Handle error, show error message to the user
@@ -111,30 +113,34 @@ function ManagerDetails() {
                   />
                 </div>
               </div>
-              <div className="col-lg-6  mt-3 mb-2 ">
-                <label className="group-label">Profile pic * </label>
-                <div className="flex items-center justify-center w-50 ">
-                  <label
-                    id="uploadfile"
-                    className="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300  rounded-lg cursor-pointer bg-gray-50 "
-                  >
-                    <div className="flex flex-col items-center justify-center mt-5 pb-4">
-                      <img src={uploadimage} />
-                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                        Click to upload{" "}
-                      </p>
-                    </div>
-                    <input
-                    
-                      onChange={handleFileUpload
-                      }
-                      id="uploadfile"
-                      type="file"
-                      className="hidden"
-                    />
-                  </label>
-                </div>
-              </div>
+              <div className="col-lg-6 mt-2 mb-2">
+      <label className="group-label">
+        Profile Pic * <img src={iicon} alt="icon" />
+      </label>
+      <div className="flex items-center justify-center w-50">
+        <label
+          htmlFor="uploadfile"
+          className="flex flex-col items-center justify-center w-full h-40 border-2 rounded-lg cursor-pointer border-gray-300 px-3 py-2 focus:outline-none focus:border-blue-500 bg-gray-50"
+        >
+          <div className="flex flex-col items-center justify-center  ">
+         
+              <>
+                <img src={uploadimage} alt="upload icon" />
+                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                  Click to upload
+                </p>
+              </>
+           
+          </div>
+          <input
+            id="uploadfile"
+            type="file"
+            onChange={handleFileUpload}
+            className="hidden"
+          />
+        </label>
+      </div>
+    </div>
             </div>
             <div className="row">
               <div className="col-lg-6 mt-2 mb-2">

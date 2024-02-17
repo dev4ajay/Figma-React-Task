@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 
 function Informationsection() {
   const navigate = useNavigate();
-
+  const [imagePreview, setImagePreview] = useState(null);
   const [formData, setFormData] = useState({
     businessname: "",
     city: "",
@@ -27,6 +27,22 @@ function Informationsection() {
     const fileName = file.name; // Extract the filename
     setFormData({ ...formData, uploadfile:fileName });
     console.log("Uploaded file:", fileName);
+    if (file) {
+      // Check file size
+      if (file.size > 200000) {
+        alert('Please upload an image smaller than 200kb.');
+        return; // Stop further execution
+      }
+      
+      // Further logic for handling the file...
+      
+      // Example: Display image preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
   const BusinessSubmit = async (e) => {
     e.preventDefault();
@@ -347,31 +363,36 @@ function Informationsection() {
                 </div>
               </>
 
-              <div className="col-lg-6  mt-2 mb-2">
-                <label className="group-label">
-                  Upload image of your Restaurant * <img src={iicon} />{" "}
-                </label>
-                <div className="flex items-center justify-center w-50  ">
-                  <label
-                    id="uploadfile"
-                    className="flex flex-col items-center justify-center w-full h-40 border-2  rounded-lg cursor-pointer  border-gray-300  px-3 py-2 focus:outline-none focus:border-blue-500 bg-gray-50 "
-                  >
-                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                      <img src={uploadimage} />
-                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                        Click to upload{" "}
-                      </p>
-                    </div>
-                    <input
-                      id="uploadfile"
-                      type="file"
-                    
-                      onChange={handleFileUpload}
-                      className="hidden "
-                    />
-                  </label>
-                </div>
-              </div>
+              <div className="col-lg-6 mt-2 mb-2">
+      <label className="group-label">
+        Upload image of your Restaurant * <img src={iicon} alt="icon" />
+      </label>
+      <div className="flex items-center justify-center w-50">
+        <label
+          htmlFor="uploadfile"
+          className="flex flex-col items-center justify-center w-full h-40 border-2 rounded-lg cursor-pointer border-gray-300 px-3 py-2 focus:outline-none focus:border-blue-500 bg-gray-50"
+        >
+          <div className="flex flex-col items-center justify-center  ">
+            {imagePreview ? (
+              <img src={imagePreview} alt="preview" style={{ maxWidth: '100%', maxHeight: '100%' }} />
+            ) : (
+              <>
+                <img src={uploadimage} alt="upload icon" />
+                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                  Click to upload
+                </p>
+              </>
+            )}
+          </div>
+          <input
+            id="uploadfile"
+            type="file"
+            onChange={handleFileUpload}
+            className="hidden"
+          />
+        </label>
+      </div>
+    </div>
             </div>
             <div className="Manager-Details mt-2 mb-2">
               <button type="submit" className="Proceed-btn ">
